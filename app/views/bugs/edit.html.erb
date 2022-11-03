@@ -1,0 +1,32 @@
+<h1>Editing bug</h1>
+<div>
+  <% if @edit_type == "1"%>
+    <%= form_with(model: @bug) do |form| %>
+      <div>
+        <%= form.label "Choose the status" %>
+        <%= form.select :types_status, ["new", "started", @final_status], :selected => "new" %>
+        <%= form.hidden_field :project_id, value: "#{@project.id}" %>
+      </div>
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= form_with(model: @bug) do |form| %>
+      <div>
+        <%= form.label "Choose the status" %>
+        <%= form.select :types_status, ["started", @final_status], :selected => "started"  %>
+        <%= form.hidden_field :project_id, value: "#{@project.id}" %>
+      </div>
+      <div>
+        <%= form.submit %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Go back to Bugs", @project %>
+</div>

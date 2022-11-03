@@ -1,0 +1,31 @@
+
+
+
+
+
+
+
+
+
+
+<%= form_with(model: project) do |form| %>
+  <%= form.label  :title %><br />
+  <%= form.text_field :title%>
+  <% if project.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+

@@ -1,0 +1,36 @@
+
+<div>
+  <%= link_to "Create New Bug", new_bug_path(:creator_id => current_user.id,:project_id => @project.id) %><br />
+  <% if @bugs then %>
+    <% @bugs.each do|bug| %>
+      <% if bug.types_status == "new" or bug.types_status == "started" then%>
+        <ol>
+          <li><%= bug.creator %></li>
+          <% if  !bug.solver.nil? %>
+            <li><%= bug.solver %></li>
+          <% else %>
+            <li><%= "No Solver Yet" %>
+          <% end %>
+          <li><%= bug.title %></li>
+          <li><%= bug.project %></li>
+          <li><%= bug.deadline %></li>
+          <li><%= bug.bug_type %></li>
+          <li><%= bug.types_status %></li>
+          <% if bug.image.attached? then%>
+            <li><%= link_to "View Screenshot", rails_blob_url(bug.image), target: :_blank%></li>
+          <% end %>
+        </ol>
+      <% end %>
+      <% if bug.types_status == "new" then %>
+        <%= link_to "Edit_Status", edit_bug_path(:id => bug.id, :edit_type => 1, :project_id => @project.id)%><br /><br /><br />
+      <% elsif bug.types_status == "started" %>
+        <%= link_to "Edit_Status", edit_bug_path(:id => bug.id, :edit_type => 2, :project_id => @project.id)%><br /><br /><br />
+      <% else %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to "Back to projects", projects_path %>
+</div>

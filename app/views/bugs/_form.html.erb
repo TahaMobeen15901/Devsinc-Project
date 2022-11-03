@@ -1,0 +1,44 @@
+
+
+
+
+
+
+
+
+<%= form_with model: bug do |form| %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :deadline %><br>
+    <%= form.date_field :deadline, min: Date.today %>
+  </div>
+  <div>
+    <%= form.label :bug_type %><br>
+    <%= form.select :bug_type, ["Bug", "Feature"], :selected => "Bug" %>
+  </div>
+  <div>
+  <div>
+    <%= form.file_field :image %>
+  </div>
+  <%= form.hidden_field :types_status, value: "new" %>
+  <%= form.hidden_field :creator, value: "#{@creator}" %>
+  <%= form.hidden_field :project_id, value: "#{@project}" %>
+  <% if bug.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
+
+      <ul>
+        <% bug.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

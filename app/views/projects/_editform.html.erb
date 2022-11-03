@@ -1,0 +1,23 @@
+<%= form_with(model: @project) do |form| %>
+  <%= form.label  :title %><br />
+  <%= form.text_field :title%><br />
+  <%= form.label "Add Users"%><br />
+  <%= form.collection_select :new_users, @valid_users, :id, :username, include_blank: true %><br />
+  <%= form.label "Remove Users"%><br />
+  <%= form.collection_select :remove_users, @invalid_users, :id, :username, include_blank: true %><br />
+  <% if @project.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% @project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
