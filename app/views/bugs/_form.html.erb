@@ -20,12 +20,13 @@
     <%= form.select :bug_type, ["Bug", "Feature"], :selected => "Bug" %>
   </div>
   <div>
-  <div>
-    <%= form.file_field :image %>
-  </div>
   <%= form.hidden_field :types_status, value: "new" %>
   <%= form.hidden_field :creator, value: "#{@creator}" %>
   <%= form.hidden_field :project_id, value: "#{@project}" %>
+  <div>
+    <%= form.file_field :image %>
+  </div>
+
   <% if bug.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(bug.errors.count, "error") %> prohibited this bug from being saved:</h2>
