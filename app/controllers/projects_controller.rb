@@ -25,12 +25,12 @@ class ProjectsController < ApplicationController
 
   # POST /projects or /projects.json
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(title: params[:project][:title])
     authorize @project
     @project.users << current_user
     respond_to do |format|
       if @project.save
-        format.html { redirect_to projects_url, flash[:notice] = "Project was successfully created." }
+        format.html { redirect_to projects_url, notice: "Project was successfully created." }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
     end
     respond_to do |format|
       if @project.update(title: params[:project][:title])
-        format.html { redirect_to projects_url, flash[:notice] = "Project was successfully updated." }
+        format.html { redirect_to projects_url, notice: "Project was successfully updated." }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url, flash[:notice] = "Project was successfully destroyed." }
+      format.html { redirect_to projects_url, notice: "Project was successfully destroyed." }
       format.json { head :no_content }
     end
   end

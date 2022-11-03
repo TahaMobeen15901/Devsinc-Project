@@ -45,7 +45,7 @@ class BugsController < ApplicationController
     User.find(params[:bug][:creator]).created_bugs <<@bug
     respond_to do |format|
       if @bug.save
-        format.html { redirect_to project_path(:id => params[:bug][:project_id]), flash[:notice] = "Bug was successfully created." }
+        format.html { redirect_to project_path(:id => params[:bug][:project_id]), notice: "Bug was successfully created." }
         format.json { render :show, status: :created, location: @bug }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class BugsController < ApplicationController
   def update
     respond_to do |format|
       if @bug.update(types_status: params[:bug][:types_status])
-        format.html { redirect_to project_path(:id => params[:bug][:project_id]), flash[:notice] = "Bug was successfully updated." }
+        format.html { redirect_to project_path(:id => params[:bug][:project_id]), notice: "Bug was successfully updated." }
         format.json { render :show, status: :ok, location: @bug }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -72,7 +72,7 @@ class BugsController < ApplicationController
     @bug.destroy
 
     respond_to do |format|
-      format.html { redirect_to bugs_url, flash[:notice] = "Bug was successfully destroyed." }
+      format.html { redirect_to bugs_url, notice: "Bug was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -89,7 +89,7 @@ class BugsController < ApplicationController
       if (@curr.deadline> Date.today) or (@curr.types_status != "new" and @curr.types_status != "started")then
         @curr.destroy
         respond_to do |format|
-          format.html { redirect_to bugs_url, flash[:notice] = "Bug was successfully destroyed." }
+          format.html { redirect_to bugs_url, notice: "Bug was successfully destroyed." }
           format.json { head :no_content }
         end
       end
